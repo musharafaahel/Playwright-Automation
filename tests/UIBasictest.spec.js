@@ -1,4 +1,4 @@
-const { test } = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
 //Older version of anonymous function
 test('First Playwright Test', async function(){
@@ -17,4 +17,8 @@ test('First Playwright Test - 1', async ({ browser }) => {
 test.only('First Playwright Test - 2', async ({ page }) => {
     // Playwright code goes here
     await page.goto('https://www.google.com');
+    //get the title of the page and assert it
+    const title = await page.title();
+    console.log(title);
+    await expect(page).toHaveTitle('Google');
 });

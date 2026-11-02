@@ -13,8 +13,10 @@ export default defineConfig({
   },
   reporter: 'html',
   use: {
+    // browserName: 'webkit',
     browserName: 'chromium',
-    
+    // browserName: 'firefox',
+    headless: true, // set to false if you want to see the browser
   },
 
 
