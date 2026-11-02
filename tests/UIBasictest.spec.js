@@ -14,7 +14,7 @@ test('First Playwright Test - 1', async ({ browser }) => {
 });
 
 //ANother way of writing the same test
-test('First Playwright Test - 2', async ({ page }) => {
+test.only('First Playwright Test - 2', async ({ page }) => {
     // Playwright code goes here
-    await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+    await page.goto('https://www.google.com');
 });
