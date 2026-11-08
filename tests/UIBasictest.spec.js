@@ -6,7 +6,7 @@ test('First Playwright Test', async function(){
 });
 
 //Newer version of anonymous function
-test.only('First Playwright Test - 1', async ({ browser }) => {
+test('First Playwright Test - 1', async ({ browser }) => {
     // Playwright code goes here
 
     const context = await browser.newContext();
