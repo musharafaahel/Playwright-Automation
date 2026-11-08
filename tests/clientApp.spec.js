@@ -21,8 +21,14 @@ test.only("Client App Test - Login", async ({ page }) => {
     await page.locator("#userEmail").fill("musharafaahel@gmail.com");
     await page.locator("#userPassword").fill("Welcome@123");
     await page.locator("#login").click();
-    const products = page.locator(".card-body");
-    console.log(await products.nth(0).locator("b").textContent());
+    await page.waitForLoadState("networkidle");
+    //myway
+    /*const products = page.locator(".card-body");
+    console.log(await products.nth(0).locator("b").textContent());*/
+    //Rahul Shetty way
+    const titles = await page.locator(".card-body b").allTextContents();
+    console.log(titles);
+
 
     await page.waitForTimeout(3000);
 });
