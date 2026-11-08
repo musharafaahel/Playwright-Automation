@@ -8,15 +8,29 @@ test('First Playwright Test', async function(){
 //Newer version of anonymous function
 test.only('First Playwright Test - 1', async ({ browser }) => {
     // Playwright code goes here
+
     const context = await browser.newContext();
     const page = await context.newPage();
+
+    const userName = page.locator("input#username");
+    const password = page.locator("[type='password']");
+    const signInButton = page.locator("#signInBtn");
+    const cardTitles = page.locator(".card-body a");
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
-     await page.locator("input#username").fill("rahulshettyacademy");
-    // await page.locator("[type='password']").fill("Learning@830$3mK2");
-    await page.locator("[type='password']").fill("Learning");
-    await page.locator("#signInBtn").click();
+     await userName.fill("rahulshettyacademy");
+    // await password.fill("Learning@830$3mK2");
+    await password.fill("Learning");
+    await signInButton.click();
     console.log(await page.locator("[style*='block']").textContent());
-    await expect(page.locator("[style*='block']")).toContainText("Incrrect username/password.");
+    await expect(page.locator("[style*='block']")).toContainText("Incorrect username/password.");
+    await userName.fill("");
+    await userName.fill("rahulshettyacademy");
+    await password.fill("Learning@830$3mK2");
+    await signInButton.click();
+    
+    console.log(await cardTitles.nth(0).textContent());
+    const allTitles =  await cardTitles.allTextContents();
+    console.log(allTitles);
 });
 
 //ANother way of writing the same test
