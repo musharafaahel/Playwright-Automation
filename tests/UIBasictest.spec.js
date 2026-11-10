@@ -44,3 +44,52 @@ test('First Playwright Test - 2', async ({ page }) => {
    
 
 });
+
+
+test("UI Controls", async ({ page }) => {
+    await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+    const userName = page.locator("input#username");
+    const password = page.locator("[type='password']");
+    const dropdown = page.locator("select.form-control");
+    await dropdown.selectOption("consult");
+    await page.locator(".radiotextsty").last().click();
+    await page.locator("#okayBtn").click();
+// Assertion
+    await expect(page.locator(".radiotextsty").last()).toBeChecked();
+    await page.locator("#terms").click();
+    await expect(page.locator("#terms")).toBeChecked();
+    await page.locator("#terms").uncheck();
+    await expect(page.locator("#terms")).not.toBeChecked();
+    expect(await page.locator("#terms").isChecked()).toBeFalsy();
+
+    const documentLink = page.locator("a[href*='documents-request']");
+    await expect(documentLink).toHaveAttribute("class", "blinkingText");
+    // await expect(page.locator(".blinkingText")).toHaveAttribute("class", "blinkingText");
+    await page.pause();  // will pause the test execution and open the browser in debug mode i.e playwright inspector mode. You can inspect the elements and perform actions on them. Once you are done, click on resume button to continue the test execution.
+      
+});
+
+
+test("Child Windows Handling", async ({ browser }) => {
+    const browserContext = await browser.newContext();
+    const page = await browserContext.newPage();
+    await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+    const documentLink = page.locator("a[href*='documents-request']");
+    const [newPage] = await Promise.all([
+        browserContext.waitForEvent('page'),
+        documentLink.click()
+    ]);
+   
+    await newPage.waitForLoadState("networkidle");
+    const textContent = await newPage.locator(".red").textContent();
+    console.log(textContent);
+    const arrayTextContent = textContent.split("@");
+    const domain = arrayTextContent[1].split(" ")[0];
+    console.log(domain);
+
+    const userName = page.locator("input#username");
+    await userName.type(domain);
+    await page.pause();  // will pause the test execution and open the browser in debug mode i.e playwright inspector mode. You can inspect the elements and perform actions on them. Once you are done, click on resume button to continue the test execution.
+    console.log("UserName: ", await userName.inputValue());
+
+});
