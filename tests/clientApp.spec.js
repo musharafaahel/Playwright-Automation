@@ -31,4 +31,5 @@ test.only("Client App Test - Login", async ({ page }) => {
 
 
     await page.waitForTimeout(3000);
+    // This comment just added to check the git commit and push functionality
 });
