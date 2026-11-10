@@ -70,7 +70,7 @@ test("UI Controls", async ({ page }) => {
 });
 
 
-test.only("Child Windows Handling", async ({ browser }) => {
+test("Child Windows Handling", async ({ browser }) => {
     const browserContext = await browser.newContext();
     const page = await browserContext.newPage();
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
