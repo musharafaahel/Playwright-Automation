@@ -46,7 +46,7 @@ test('First Playwright Test - 2', async ({ page }) => {
 });
 
 
-test.only("UI Controls", async ({ page }) => {
+test("UI Controls", async ({ page }) => {
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
     const userName = page.locator("input#username");
     const password = page.locator("[type='password']");
@@ -67,4 +67,29 @@ test.only("UI Controls", async ({ page }) => {
     // await expect(page.locator(".blinkingText")).toHaveAttribute("class", "blinkingText");
     await page.pause();  // will pause the test execution and open the browser in debug mode i.e playwright inspector mode. You can inspect the elements and perform actions on them. Once you are done, click on resume button to continue the test execution.
       
+});
+
+
+test.only("Child Windows Handling", async ({ browser }) => {
+    const browserContext = await browser.newContext();
+    const page = await browserContext.newPage();
+    await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+    const documentLink = page.locator("a[href*='documents-request']");
+    const [newPage] = await Promise.all([
+        browserContext.waitForEvent('page'),
+        documentLink.click()
+    ]);
+   
+    await newPage.waitForLoadState("networkidle");
+    const textContent = await newPage.locator(".red").textContent();
+    console.log(textContent);
+    const arrayTextContent = textContent.split("@");
+    const domain = arrayTextContent[1].split(" ")[0];
+    console.log(domain);
+
+    const userName = page.locator("input#username");
+    await userName.type(domain);
+    await page.pause();  // will pause the test execution and open the browser in debug mode i.e playwright inspector mode. You can inspect the elements and perform actions on them. Once you are done, click on resume button to continue the test execution.
+    console.log("UserName: ", await userName.inputValue());
+
 });
