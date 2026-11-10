@@ -16,7 +16,7 @@ test("Client App Test - Account Registration", async ({ page }) => {
     await page.waitForTimeout(3000);
 });
 
-test.only("Client App Test - Login", async ({ page }) => {
+test("Client App Test - Login", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
     await page.locator("#userEmail").fill("musharafaahel@gmail.com");
     await page.locator("#userPassword").fill("Welcome@123");

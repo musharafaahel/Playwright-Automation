@@ -44,3 +44,17 @@ test('First Playwright Test - 2', async ({ page }) => {
    
 
 });
+
+
+test.only("UI Controls", async ({ page }) => {
+    await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+    const userName = page.locator("input#username");
+    const password = page.locator("[type='password']");
+    const dropdown = page.locator("select.form-control");
+    await dropdown.selectOption("consult");
+    await page.locator(".radiotextsty").last().click();
+    await page.locator("#okayBtn").click();
+
+    await page.pause();  // will pause the test execution and open the browser in debug mode i.e playwright inspector mode. You can inspect the elements and perform actions on them. Once you are done, click on resume button to continue the test execution.
+      
+});
