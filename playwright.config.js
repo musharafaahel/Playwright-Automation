@@ -16,7 +16,7 @@ export default defineConfig({
     // browserName: 'webkit',
     browserName: 'chromium',
     // browserName: 'firefox',
-    headless: false, // set to false if you want to see the browser
+    headless: true, // set to false if you want to see the browser
   },
 
 
