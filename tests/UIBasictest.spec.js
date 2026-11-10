@@ -54,7 +54,13 @@ test.only("UI Controls", async ({ page }) => {
     await dropdown.selectOption("consult");
     await page.locator(".radiotextsty").last().click();
     await page.locator("#okayBtn").click();
-
+// Assertion
+    await expect(page.locator(".radiotextsty").last()).toBeChecked();
+    await page.locator("#terms").click();
+    await expect(page.locator("#terms")).toBeChecked();
+    await page.locator("#terms").uncheck();
+    await expect(page.locator("#terms")).not.toBeChecked();
+    expect(await page.locator("#terms").isChecked()).toBeFalsy();
     await page.pause();  // will pause the test execution and open the browser in debug mode i.e playwright inspector mode. You can inspect the elements and perform actions on them. Once you are done, click on resume button to continue the test execution.
       
 });
