@@ -61,6 +61,10 @@ test.only("UI Controls", async ({ page }) => {
     await page.locator("#terms").uncheck();
     await expect(page.locator("#terms")).not.toBeChecked();
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
+
+    const documentLink = page.locator("a[href*='documents-request']");
+    await expect(documentLink).toHaveAttribute("class", "blinkingText");
+    // await expect(page.locator(".blinkingText")).toHaveAttribute("class", "blinkingText");
     await page.pause();  // will pause the test execution and open the browser in debug mode i.e playwright inspector mode. You can inspect the elements and perform actions on them. Once you are done, click on resume button to continue the test execution.
       
 });
